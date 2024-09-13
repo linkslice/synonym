@@ -43,6 +43,7 @@ void print_popular_aliases() {
     printf("# Popular aliases people use:\n");
     printf("alias ll='ls -la'\n");
     printf("alias la='ls -A'\n");
+    printf("alias latr='ls -latr'\n");
     printf("alias l='ls -CF'\n");
     printf("alias grep='grep --color=auto'\n");
     printf("alias df='df -h'\n");

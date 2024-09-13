@@ -1,5 +1,3 @@
-
-
 # Makefile for synonym program
 
 # Detect available C compiler

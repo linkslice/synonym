@@ -26,8 +26,8 @@ Examples:
 ./synonym -t openbsd -p                  
 # OpenBSD-specific aliases:
 alias pkgup='doas pkg_add -u'
-alias pfstat='sudo pfctl -si'
-alias pflog='sudo tcpdump -n -e -ttt -i pflog0'
+alias pfstat='doas pfctl -si'
+alias pflog='doas tcpdump -n -e -ttt -i pflog0'
 ````
 ````
 ./synonym -t openbsd -p >> .profile

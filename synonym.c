@@ -157,8 +157,8 @@ void print_platform_aliases(Platform target) {
         case OPENBSD:
             printf("# OpenBSD-specific aliases:\n");
             printf("alias pkgup='doas pkg_add -u'\n");
-            printf("alias pfstat='sudo pfctl -si'\n");
-            printf("alias pflog='sudo tcpdump -n -e -ttt -i pflog0'\n");
+            printf("alias pfstat='doas pfctl -si'\n");
+            printf("alias pflog='doas tcpdump -n -e -ttt -i pflog0'\n");
             break;
         case SOLARIS:
             printf("# Solaris-specific aliases:\n");

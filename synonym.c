@@ -55,42 +55,44 @@ void print_popular_aliases() {
 }
 
 // Function to generate a smart alias for a given command based on the chosen method
+// Function to generate a smart alias for a given command based on the chosen method
 void generate_alias(const char* command, char* alias, AliasMethod method) {
     const char* delim = " ";
     char* token;
-    char command_copy[MAX_LINE];
-    strncpy(command_copy, command, MAX_LINE - 1);
-    command_copy[MAX_LINE - 1] = '\0';
+    char temp_alias[MAX_LINE] = ""; // Temporary alias holder
+    int alias_index = 0;
 
-    token = strtok(command_copy, delim);
-    int index = 0;
-
-    // Create an alias based on the selected method
+    // Tokenize the command string
+    token = strtok(strdup(command), delim);
     while (token != NULL) {
-        int chars_to_take = 1; // Default to first letter
-
         switch (method) {
             case FIRST_LETTER:
-                chars_to_take = 1;
+                temp_alias[alias_index++] = token[0]; // Add first letter of each word
                 break;
             case FIRST_TWO_LETTERS:
-                chars_to_take = 2;
+                strncat(temp_alias, token, 2); // Add first two letters of each word
+                alias_index += 2;
                 break;
             case FIRST_THREE_LETTERS:
-                chars_to_take = 3;
+                strncat(temp_alias, token, 3); // Add first three letters of each word
+                alias_index += 3;
                 break;
         }
-
-        // Ensure that we do not exceed the token length
-        for (int i = 0; i < chars_to_take && token[i] != '\0'; i++) {
-            alias[index++] = tolower(token[i]);
-        }
-
         token = strtok(NULL, delim);
     }
-    alias[index] = '\0';
-}
+    temp_alias[alias_index] = '\0'; // Null-terminate the alias
 
+    // Strip out any dashes from the temporary alias
+    int i, j = 0;
+    for (i = 0; temp_alias[i] != '\0'; i++) {
+        if (temp_alias[i] != '-') {
+            alias[j++] = temp_alias[i];
+        }
+    }
+    alias[j] = '\0'; // Null-terminate the alias
+
+    free(token); // Clean up
+}
 // Function to check if an alias already exists in the specified file
 int check_alias_in_file(const char* alias, const char* file_path) {
     FILE* file = fopen(file_path, "r");
